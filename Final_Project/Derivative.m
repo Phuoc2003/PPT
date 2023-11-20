@@ -40,9 +40,9 @@ classdef Derivative < handle
         function result = LagrangeDerivative(obj)
             syms f(xi);
             f(xi) = obj.LagrangePolynominal();
-            obj.fx = f(xi);
+            obj.fx = symfun(f(xi), xi);
             obj.h = obj.xa(2) - obj.xa(1);
-            obj.result = double((f(obj.x+obj.h)-f(obj.x))/obj.h);
+            obj.result = double((obj.fx(obj.x+obj.h)-obj.fx(obj.x))/obj.h);
             result = obj.result;
         end
     end   
