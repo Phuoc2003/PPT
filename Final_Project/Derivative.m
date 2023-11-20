@@ -5,7 +5,7 @@ classdef Derivative < handle
     properties (Access = public)
         xa;
         ya;
-        f symfun;
+        fx;
         h;
         Oh;
         derivativeMethod;
