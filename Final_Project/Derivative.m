@@ -2,14 +2,15 @@ classdef Derivative < handle
     %UNTITLED Summary of this class goes here
     %   Detailed explanation goes here
 
-    properties
+    properties (Access = public)
         xa;
         ya;
         f symfun;
         h;
         Oh;
-        derivedMethod;
+        derivativeMethod;
         x;
+        switchState;
         result;
     end
 
