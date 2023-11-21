@@ -42,7 +42,34 @@ classdef Derivative < handle
             f(xi) = obj.LagrangePolynominal();
             obj.fx = symfun(f(xi), xi);
             obj.h = obj.xa(2) - obj.xa(1);
-            obj.result = double((obj.fx(obj.x+obj.h)-obj.fx(obj.x))/obj.h);
+            if obj.derivativeMethod == 0 % Xap xi tien
+                obj.result = double((obj.fx(obj.x + obj.h) - obj.fx(obj.x))/obj.h);
+            elseif obj.derivativeMethod == 1 % Xap xi lui
+                obj.result = double((obj.fx(obj.x) - obj.fx(obj.x - obj.h))/obj.h);
+            else
+                obj.result = double((obj.fx(obj.x + obj.h)-obj.fx(obj.x - obj.h))/2*obj.h);
+            end 
+            result = obj.result;
+        end
+
+        function result = fxDerivative(obj)
+            if obj.Oh == 0 %O(h)
+                if obj.derivativeMethod == 0 % Xap xi tien
+                    obj.result = double((obj.fx(obj.x + obj.h) - obj.fx(obj.x))/obj.h);
+                elseif obj.derivativeMethod == 1 % Xap xi lui
+                    obj.result = double((obj.fx(obj.x) - obj.fx(obj.x - obj.h))/obj.h);
+                else
+                    obj.result = double((obj.fx(obj.x + obj.h) - obj.fx(obj.x - obj.h))/2*obj.h);
+                end 
+            else
+                if obj.derivativeMethod == 0 % Xap xi tien
+                    obj.result = double((-obj.fx(obj.x + 2*obj.h) + 4*obj.fx(obj.x + obj.h) - 3*obj.fx(obj.x))/2*obj.h);
+                elseif obj.derivativeMethod == 1 % Xap xi lui
+                    obj.result = double((3*obj.fx(obj.x)  - 4*obj.fx(obj.x - obj.h) + obj.fx(obj.x - 2*obj.h))/2*obj.h);
+                else
+                    obj.result = double((obj.fx(obj.x + obj.h)-obj.fx(obj.x - obj.h))/2*obj.h);
+                end 
+            end
             result = obj.result;
         end
     end   
