@@ -3,8 +3,8 @@ classdef Hoiquy < handle
     %   Detailed explanation goes here
 
     properties (Access = public)
-        xn;
-        yn;
+        xa;
+        ya;
         ppHoiQuy;
         doThi;
         phuongTrinh;
@@ -13,19 +13,21 @@ classdef Hoiquy < handle
     end
 
     methods
-        function [a1, a0] = hoiquytuyentinh(x, y)
-            n = length(x);
-            x_tb = sum(x)/n;
-            y_tb = sum(y)/n;
-            a1 = (n*sum(x.*y) - sum(x)*sum(y))/(n*sum(x.^2) - (sum(x)^2));
+        function [a1, a0] = hoiQuyTuyenTinh(obj)
+            n = length(obj.xa);
+            x_tb = sum(obj.xa)/n;
+            y_tb = sum(obj.ya)/n;
+            a1 = (n * sum(obj.xa .* obj.ya) - sum(obj.xa) * sum(obj.ya))/(n*sum(obj.xa.^2) - (sum(obj.xa)^2));
             a0 = y_tb - a1*x_tb;
         end
 
-        function [a, b] = hoiquyhammu(x, y)
-            n = length(x);
+        function [a, b] = hoiQuyHamMu(obj)
+            n = length(obj.xa);
+            xm = zeros(n);
+            ym = zeros(n);
             for i = 1:n
-                xm(i) = log10(x(i));
-                ym(i) = log10(y(i));
+                xm(i) = log10(obj.xa(i));
+                ym(i) = log10(obj.ya(i));
             end
             xm_tb = sum(xm)/n;
             ym_tb = sum(ym)/n;
@@ -35,14 +37,15 @@ classdef Hoiquy < handle
             b = a1;
         end
 
-        function [a, b] = hoiquylogarit(x, y)
-            n = length(x);
+        function [a, b] = hoiQuyLogarit(obj)
+            n = length(obj.xa);
+            ym = zeros(n);
             for i = 1:n
-                ym(i) = log(y(i));
+                ym(i) = log(obj.ya(i));
             end
-            xm_tb = sum(x)/n;
+            xm_tb = sum(obj.xa)/n;
             ym_tb = sum(ym)/n;
-            a1 = (n*sum(x.*ym) - (sum(x)*sum(ym)))/(n*sum(x.^2) - (sum(x))^2);
+            a1 = (n*sum(obj.xa.*ym) - (sum(obj.xa)*sum(ym)))/(n*sum(obj.xa.^2) - (sum(obj.xa))^2);
             a0 = ym_tb - a1*xm_tb;
             a = exp(a0);
             b = a1;
