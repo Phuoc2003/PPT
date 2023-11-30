@@ -17,7 +17,7 @@ classdef Hoiquy < handle
             n = length(obj.xa);
             x_tb = sum(obj.xa)/n;
             y_tb = sum(obj.ya)/n;
-            a1 = (n * sum(obj.xa .* obj.ya) - sum(obj.xa) * sum(obj.ya))/(n*sum(obj.xa.^2) - (sum(obj.xa)^2));
+            a1 = (n*sum(obj.xa.*obj.ya) - sum(obj.xa)*sum(obj.ya))/(n*sum(obj.xa.^2) - (sum(obj.xa)^2));
             a0 = y_tb - a1*x_tb;
         end
 
