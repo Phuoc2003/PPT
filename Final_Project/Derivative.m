@@ -15,6 +15,12 @@ classdef Derivative < handle
     end
 
     methods
+        function obj = Derivative(switchState, derivativeMethod, Oh)
+            obj.switchState = switchState;
+            obj.derivativeMethod = derivativeMethod;
+            obj.Oh = Oh;
+        end
+
         function result = Lagrange(obj, xi)
             n = length(obj.xa);
             sum = 0;
