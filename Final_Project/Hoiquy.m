@@ -5,11 +5,11 @@ classdef Hoiquy < handle
     properties (Access = public)
         xa;
         ya;
+        x_predict;
+        y_predict;
         ppHoiQuy;
         doThi;
         phuongTrinh;
-        inDuDoan;
-        outDuDoan;
     end
 
     methods
