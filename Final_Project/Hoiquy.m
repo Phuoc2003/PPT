@@ -5,50 +5,81 @@ classdef Hoiquy < handle
     properties (Access = public)
         xa;
         ya;
-        x_predict;
-        y_predict;
+        x;
         ppHoiQuy;
-        doThi;
         phuongTrinh;
     end
 
     methods
-        function [a1, a0] = hoiQuyTuyenTinh(obj)
+        function y = hoiQuyTuyenTinh(obj)
             n = length(obj.xa);
-            x_tb = sum(obj.xa)/n;
-            y_tb = sum(obj.ya)/n;
-            a1 = (n*sum(obj.xa.*obj.ya) - sum(obj.xa)*sum(obj.ya))/(n*sum(obj.xa.^2) - (sum(obj.xa)^2));
-            a0 = y_tb - a1*x_tb;
+            sumX = 0;
+            sumY = 0;
+            sumXY = 0;
+            sumX2 = 0;
+            for i = 1:n
+                sumX = sumX + obj.xa(i);
+                sumY = sumY + obj.ya(i);
+                sumXY = sumXY + obj.xa(i) * obj.ya(i);
+                sumX2 = sumX2 + obj.xa(i) * obj.xa(i);
+            end
+            xm = sumX/n;
+            ym = sumY/n;
+            a1 = (n * sumXY- sumX * sumY)/(n * sumX2 - sumX * sumX);
+            a0 = ym - a1 * xm;
+            y = a0 + a1 * obj.x;
         end
 
-        function [a, b] = hoiQuyHamMu(obj)
+        function y = hoiQuyHamMu(obj)
             n = length(obj.xa);
-            xm = zeros(n);
-            ym = zeros(n);
+            xlog = zeros(n);
+            ylog = zeros(n);
             for i = 1:n
-                xm(i) = log10(obj.xa(i));
-                ym(i) = log10(obj.ya(i));
+                xlog(i) = log10(obj.xa(i));
+                ylog(i) = log10(obj.ya(i));
             end
-            xm_tb = sum(xm)/n;
-            ym_tb = sum(ym)/n;
-            a1 = (n*sum(xm.*ym) - sum(xm)*sum(ym))/(n*sum(xm.^2) - (sum(xm)^2));
-            a0 = ym_tb - a1*xm_tb;
+            sumX = 0;
+            sumY = 0;
+            sumXY = 0;
+            sumX2 = 0;
+            for i = 1:n
+                sumX = sumX + xlog(i);
+                sumY = sumY + ylog(i);
+                sumXY = sumXY + xlog(i) * ylog(i);
+                sumX2 = sumX2 + xlog(i) * xlog(i);
+            end
+            xm = sumX/n;
+            ym = sumY/n;
+            a1 = (n * sumXY- sumX * sumY)/(n * sumX2 - sumX * sumX);
+            a0 = ym - a1 * xm;
             a = 10^a0;
             b = a1;
+            y = a * obj.x ^ b;
         end
 
-        function [a, b] = hoiQuyLogarit(obj)
+        function y = hoiQuyLogarit(obj)
             n = length(obj.xa);
-            ym = zeros(n);
+            ylog = zeros(n);
             for i = 1:n
-                ym(i) = log(obj.ya(i));
+                ylog(i) = log(obj.ya(i));
             end
-            xm_tb = sum(obj.xa)/n;
-            ym_tb = sum(ym)/n;
-            a1 = (n*sum(obj.xa.*ym) - (sum(obj.xa)*sum(ym)))/(n*sum(obj.xa.^2) - (sum(obj.xa))^2);
-            a0 = ym_tb - a1*xm_tb;
+            sumX = 0;
+            sumY = 0;
+            sumXY = 0;
+            sumX2 = 0;
+            for i = 1:n
+                sumX = sumX + obj.xa(i);
+                sumY = sumY + ylog(i);
+                sumXY = sumXY + obj.xa(i) * ylog(i);
+                sumX2 = sumX2 + obj.xa(i) * obj.xa(i);
+            end
+            xm = sumX/n;
+            ym = sumY/n;
+            a1 = (n * sumXY- sumX * sumY)/(n * sumX2 - sumX * sumX);
+            a0 = ym - a1 * xm;
             a = exp(a0);
             b = a1;
+            y = a * exp(b * obj.x);
         end
     end
 end
