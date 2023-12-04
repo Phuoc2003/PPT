@@ -20,37 +20,25 @@ classdef NoiSuy < handle
             end
         end
 
-        function result = NewtonForm(obj, da)
+        function result = NewtonForm(obj, da, xi)
             n = length(da);
             result = da(n);
 
             for i = n-1:-1:1
-                result = result * (obj.x - obj.xa(i)) + da(i);
+                result = result * (xi - obj.xa(i)) + da(i);
             end
         end
 
-        function result = NewtonInterpolation(obj)
+        function result = NewtonInterpolation(obj, xi)
             da = obj.DividedDifference();
-            result = obj.NewtonForm(da);
+            result = obj.NewtonForm(da, xi);
         end
 
-        function expression = NewtonInterpolationExpression(obj)
-
-            n = length(obj.xa);
-            da = obj.DividedDifference();
-            syms x;
-
-            result = obj.ya(1); % Giá trị ban đầu
-            for i = 2:n
-                tem = 1;
-                for j = 1:i - 1
-                    tem = tem * (obj.x - obj.xa(j));
-                end
-                result = result + da(i) * tem;
-            end
-
-            expression = result;
-            fprintf('Biểu thức nội suy Newton: %s\n', char(expression));
+        function result = NewtonPolynominal(obj)
+            syms f(xi);
+            f(xi) = obj.NewtonInterpolation(xi);
+            f(xi) = simplify(f(xi));
+            result = f(xi);
         end
 
         function result = Lagrange(obj, xi)
