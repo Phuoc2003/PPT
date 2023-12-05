@@ -17,7 +17,7 @@ classdef Tichphan < handle
     methods
         function result = tichphanhinhthang(obj)
                  h = (obj.canTren - obj.canDuoi)/obj.N;
-                 sum = obj.fx(a) + obi.fx(b);
+                 sum = obj.fx(obj.canDuoi) + obj.fx(obj.canTren);
                     for i= 1:obj.N - 1
                          sum = sum + 2*obj.fx(obj.canDuoi + i*h);
                     end
@@ -26,7 +26,7 @@ classdef Tichphan < handle
      
         function result = simpson13(obj)
                  h = (obj.canTren - obj.canDuoi)/obj.N;
-                 sum = obj.fx(a) + obi.fx(b);
+                 sum = obj.fx(obj.canDuoi) + obj.fx(obj.canTren);
                      for i= 1:2:obj.N - 1
                          sum = sum + 4*obj.fx(obj.canDuoi + i*h);
                      end
@@ -37,7 +37,7 @@ classdef Tichphan < handle
         end
         function result = simpson38(obj)
                  h = (obj.canTren - obj.canDuoi)/obj.N;  
-                 sum = obj.fx(a) + obi.fx(b);
+                 sum = obj.fx(obj.canDuoi) + obj.fx(obj.canTren);
                  if mod(obj.N, 3) ~= 0                  
                     sum = 0;
                  else

@@ -11,7 +11,7 @@ classdef Hoiquy < handle
     end
 
     methods
-        function y = hoiQuyTuyenTinh(obj)
+        function [y, a1, a0] = hoiQuyTuyenTinh(obj)
             n = length(obj.xa);
             sumX = 0;
             sumY = 0;
@@ -30,7 +30,7 @@ classdef Hoiquy < handle
             y = a0 + a1 * obj.x;
         end
 
-        function y = hoiQuyHamMu(obj)
+        function [y, a, b] = hoiQuyHamMu(obj)
             n = length(obj.xa);
             xlog = zeros(n);
             ylog = zeros(n);
@@ -57,7 +57,7 @@ classdef Hoiquy < handle
             y = a * obj.x ^ b;
         end
 
-        function y = hoiQuyLogarit(obj)
+        function [y, a, b] = hoiQuyLogarit(obj)
             n = length(obj.xa);
             ylog = zeros(n);
             for i = 1:n
@@ -80,6 +80,26 @@ classdef Hoiquy < handle
             a = exp(a0);
             b = a1;
             y = a * exp(b * obj.x);
+        end
+        function result = phuongTrinhHoiQuyTuyenTinh(obj)
+            syms x;
+            [y,a1,a0] = obj.hoiQuyTuyenTinh();
+            y = a0 + a1 * x;
+            result = y;
+        end
+        function result = phuongTrinhHoiQuyHamMu(obj)
+            syms x;            
+            [y,a,b] = obj.hoiQuyHamMu();
+            y = a * x ^ b;
+            y = simplify(y);
+            result = y;
+        end
+        function result = phuongTrinhHoiQuyLogarit(obj)
+            syms x;
+            [y,a,b] = obj.hoiQuyLogarit();
+            y = a * exp(b * x);
+            y = simplify(y);
+            result = y;
         end
     end
 end
