@@ -35,10 +35,10 @@ classdef NoiSuy < handle
         end
 
         function result = NewtonPolynominal(obj)
-            syms f(xi);
-            f(xi) = obj.NewtonInterpolation(xi);
-            f(xi) = simplify(f(xi));
-            result = f(xi);
+            syms f(x);
+            f(x) = obj.NewtonInterpolation(x);
+            f(x) = simplify(f(x));
+            result = f(x);
         end
 
         function result = Lagrange(obj, xi)
