@@ -57,10 +57,10 @@ classdef NoiSuy < handle
         end
 
          function result = LagrangePolynominal(obj)
-            syms f(xi);
-            f(xi) = obj.Lagrange(xi);
-            f(xi) = simplify(f(xi));
-            result = f(xi);
+            syms f(x);
+            f(x) = obj.Lagrange(x);
+            f(x) = simplify(f(x));
+            result = f(x);
         end
 
     end
