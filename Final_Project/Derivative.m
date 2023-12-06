@@ -29,21 +29,25 @@ classdef Derivative < NoiSuy
         end
 
         function result = fxDerivative(obj)
+            x = obj.xDH;
+            hF = obj.h;
+            f = obj.fx;
+
             if obj.Oh == 0 %O(h)
                 if obj.derivativeMethod == 0 % Xap xi tien
-                    obj.result = double((obj.fx(obj.xDH + obj.h) - obj.fx(obj.xDH))/obj.h);
+                    obj.result = double((f(x + hF) - f(x))/hF);
                 elseif obj.derivativeMethod == 1 % Xap xi lui
-                    obj.result = double((obj.fx(obj.xDH) - obj.fx(obj.xDH - obj.h))/obj.h);
+                    obj.result = double((f(x) - f(x - hF))/hF);
                 else
-                    obj.result = double((obj.fx(obj.xDH + obj.h) - obj.fx(obj.xDH - obj.h))/2*obj.h);
+                    obj.result = double((f(x + hF) - f(x - hF))/(2*hF));
                 end 
             else
                 if obj.derivativeMethod == 0 % Xap xi tien
-                    obj.result = double((-obj.fx(obj.xDH + 2*obj.h) + 4*obj.fx(obj.xDH + obj.h) - 3*obj.fx(obj.xDH))/2*obj.h);
+                    obj.result = (-f(x + 2*hF) + 4*f(x + hF) - 3*f(x))/(2*hF);
                 elseif obj.derivativeMethod == 1 % Xap xi lui
-                    obj.result = double((3*obj.fx(obj.x)  - 4*obj.fx(obj.xDH - obj.h) + obj.fx(obj.xDH - 2*obj.h))/2*obj.h);
+                    obj.result = (3*f(x) - 4*f(x - hF) + f(x - 2*hF))/(2*hF);
                 else
-                    obj.result = double((obj.fx(obj.xDH + obj.h)-obj.fx(obj.xDH - obj.h))/2*obj.h);
+                    obj.result = (f(x + hF) - f(x - hF))/(2*hF);
                 end 
             end
             
