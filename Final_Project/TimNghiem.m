@@ -15,7 +15,6 @@ classdef TimNghiem < handle
 
     methods
         function [nghiem, solanlap] = chiadoi(obj)
-             obj.f = str2func(['@(x)', obj.f]);
              left = obj.a;
              right = obj.b;
              n = 0;
@@ -33,8 +32,6 @@ classdef TimNghiem < handle
         end
         
         function [nghiem, solanlap] = lap(obj)
-             obj.f = str2func(['@(x)', obj.f]); 
-             obj.fp = str2func(['@(x)', obj.fp]);
              c=(obj.a+obj.b)/2;
              if (obj.f(obj.a)*obj.f(c)) < 0
                 x0 = obj.a;
@@ -55,7 +52,6 @@ classdef TimNghiem < handle
         end
 
         function [nghiem,solanlap] = tieptuyen_new(obj)
-             obj.f = str2func(['@(x)', obj.f]);
              syms x;
              fd1 = str2func(['@(x)' char(diff(obj.f(x)))]);
              fd2 = str2func(['@(x)' char(diff(fd1(x)))]);
@@ -86,7 +82,6 @@ classdef TimNghiem < handle
         end
 
         function [nghiem, solanlap] = daycung(obj)
-             obj.f = str2func(['@(x)', obj.f]);
              left = obj.a;
              right = obj.b;
              n = 0;
