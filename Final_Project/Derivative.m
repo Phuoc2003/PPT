@@ -35,11 +35,11 @@ classdef Derivative < NoiSuy
 
             if obj.Oh == 0 %O(h)
                 if obj.derivativeMethod == 0 % Xap xi tien
-                    obj.result = double((f(x + hF) - f(x))/hF);
+                    obj.result = (f(x + hF) - f(x))/hF;
                 elseif obj.derivativeMethod == 1 % Xap xi lui
-                    obj.result = double((f(x) - f(x - hF))/hF);
+                    obj.result = (f(x) - f(x - hF))/hF;
                 else
-                    obj.result = double((f(x + hF) - f(x - hF))/(2*hF));
+                    obj.result = (f(x + hF) - f(x - hF))/(2*hF);
                 end 
             else
                 if obj.derivativeMethod == 0 % Xap xi tien
