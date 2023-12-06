@@ -24,14 +24,8 @@ classdef Derivative < NoiSuy
             f(x) = obj.LagrangePolynominal();
             obj.fx = symfun(f(x), x);
             obj.h = obj.xa(2) - obj.xa(1);
-            if obj.derivativeMethod == 0 % Xap xi tien
-                obj.result = double((obj.fx(obj.xDH + obj.h) - obj.fx(obj.xDH))/obj.h);
-            elseif obj.derivativeMethod == 1 % Xap xi lui
-                obj.result = double((obj.fx(obj.xDH) - obj.fx(obj.xDH - obj.h))/obj.h);
-            else
-                obj.result = double((obj.fx(obj.xDH + obj.h)-obj.fx(obj.xDH - obj.h))/2*obj.h);
-            end 
-            result = obj.result;
+
+            result = obj.fxDerivative();
         end
 
         function result = fxDerivative(obj)
@@ -52,6 +46,7 @@ classdef Derivative < NoiSuy
                     obj.result = double((obj.fx(obj.xDH + obj.h)-obj.fx(obj.xDH - obj.h))/2*obj.h);
                 end 
             end
+            
             result = obj.result;
         end
     end   
