@@ -51,7 +51,7 @@ classdef Derivative < NoiSuy
                 end 
             end
             
-            result = obj.result;
+            result = double(obj.result);
         end
     end   
 end
