@@ -97,8 +97,7 @@ classdef Tichphan < NoiSuy
                  end
                 result = ((3*h)/8) * (sum);
             end
-         end
-        
+        end        
     end
 end
 
