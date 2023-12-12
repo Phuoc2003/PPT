@@ -12,6 +12,14 @@ classdef Derivative < NoiSuy
         result;
     end
 
+    properties (Constant)
+        OH = 0;
+        OH_2 = 1;
+        XX_TREN = 0;
+        XX_LUI = 1;
+        XX_TTAM = 2;
+    end
+
     methods
         function obj = Derivative(switchState, derivativeMethod, Oh)
             obj.switchState = switchState;
