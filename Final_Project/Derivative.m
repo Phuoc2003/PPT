@@ -49,13 +49,13 @@ classdef Derivative < NoiSuy
                 else
                     obj.result = (f(x + hF) - f(x - hF))/(2*hF);
                 end 
-            else
+            else %O(h^2)    
                 if obj.derivativeMethod == obj.XX_TIEN  % Xap xi tien
                     obj.result = (-f(x + 2*hF) + 4*f(x + hF) - 3*f(x))/(2*hF);
                 elseif obj.derivativeMethod == obj.XX_LUI % Xap xi lui
                     obj.result = (3*f(x) - 4*f(x - hF) + f(x - 2*hF))/(2*hF);
                 else
-                    obj.result = (f(x + hF) - f(x - hF))/(2*hF);
+                    obj.result = (-f(x + 2*hF) + 8*f(x + hF) - 8*f(x - hF) + f(x - 2*hF) )/(12*hF);
                 end 
             end
             
