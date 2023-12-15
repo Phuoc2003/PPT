@@ -10,7 +10,7 @@ classdef Tichphan < NoiSuy
         result;
         onOff;
         chonPP;
-        K;
+        OnOff;
         PP;
     end
     
@@ -28,10 +28,10 @@ classdef Tichphan < NoiSuy
             h = (obj.canTren - obj.canDuoi)/obj.N;
             sum = obj.fx(obj.canDuoi) + obj.fx(obj.canTren);
                 for i= 1:2:obj.N - 1
-                         sum = sum + 4*obj.fx(obj.canDuoi + i*h);
+                      sum = sum + 4*obj.fx(obj.canDuoi + i*h);
                 end
                 for i= 2:2:obj.N-1
-                         sum = sum + 2*obj.fx(obj.canDuoi + i*h);
+                      sum = sum + 2*obj.fx(obj.canDuoi + i*h);
                 end
                 obj.result = (h/3) * sum;
                 result = - obj.result;
@@ -55,8 +55,8 @@ classdef Tichphan < NoiSuy
                  obj.result = ((3*h)/8) * (sum);
                  result = - obj.result;
         end
-        function obj = Tichphan(K, PP)
-            obj.K = K;
+        function obj = Tichphan(OnOff, PP)
+            obj.OnOff = OnOff;
             obj.PP = PP;
         end
         function result = XYTichphan(obj)
