@@ -22,9 +22,9 @@ classdef Tichphan < NoiSuy
                      sum = sum + 2*obj.fx(obj.canDuoi + i*h);
                 end
                 obj.result = (h/2) * sum;
-                result = obj.result;
+                result = - obj.result;
         end
-        function result = simpsom13(obj)
+        function result = simpson13(obj)
             h = (obj.canTren - obj.canDuoi)/obj.N;
             sum = obj.fx(obj.canDuoi) + obj.fx(obj.canTren);
                 for i= 1:2:obj.N - 1
@@ -34,7 +34,7 @@ classdef Tichphan < NoiSuy
                          sum = sum + 2*obj.fx(obj.canDuoi + i*h);
                 end
                 obj.result = (h/3) * sum;
-                result = obj.result;
+                result = - obj.result;
         end
         function result = simpson38(obj)
             h = (obj.canTren - obj.canDuoi)/obj.N;  
@@ -52,8 +52,8 @@ classdef Tichphan < NoiSuy
                         sum = sum + 2*obj.fx(obj.canDuoi + i*h);
                     end
                  end
-                obj.result = ((3*h)/8) * (sum);
-                result = obj.result;
+                 obj.result = ((3*h)/8) * (sum);
+                 result = - obj.result;
         end
         function obj = Tichphan(K, PP)
             obj.K = K;
@@ -68,11 +68,11 @@ classdef Tichphan < NoiSuy
         end
         function result = fxTichphan(obj)            
             if obj.PP == 0 % hinh thang
-               result = double(obj.hinhthang());   
+               result = obj.hinhthang();              
             elseif obj.PP == 1 % 1/3
-               result = double(obj.simpsom13());  
-            else
-               result = double(obj.simpsom38()); 
+               result = obj.simpson13();             
+            else 
+               result = obj.simpson38(); 
             end           
         end        
     end
