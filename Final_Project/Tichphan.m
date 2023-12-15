@@ -15,38 +15,30 @@ classdef Tichphan < NoiSuy
     end
     
     methods
-        function obj = Tichphan(K, PP)
-            obj.K = K;
-            obj.PP = PP;
+        function result = hinhthang(obj)
+            h = (obj.canTren - obj.canDuoi)/obj.N;
+            sum = obj.fx(obj.canDuoi) + obj.fx(obj.canTren);
+                for i= 1:obj.N - 1
+                     sum = sum + 2*obj.fx(obj.canDuoi + i*h);
+                end
+                obj.result = (h/2) * sum;
+                result = obj.result;
         end
-        function result = XYTichphan(obj)
-            syms f(x);
-            f(x) = obj.LagrangePolynominal();
-            obj.fx = symfun(f(x), x);
-            result = obj.fxTichphan();
-            
-        end
-        function result = fxTichphan(obj)            
-            if obj.PP == 0 % hinh thang
-                  h = (obj.canTren - obj.canDuoi)/obj.N;
-                    sum = obj.fx(obj.canDuoi) + obj.fx(obj.canTren);
-                    for i= 1:obj.N - 1
-                         sum = sum + 2*obj.fx(obj.canDuoi + i*h);
-                    end
-                  obj.result = (h/2) * sum;
-            elseif obj.PP == 1 % 1/3
-                  h = (obj.canTren - obj.canDuoi)/obj.N;
-                  sum = obj.fx(obj.canDuoi) + obj.fx(obj.canTren);
-                     for i= 1:2:obj.N - 1
+        function result = simpsom13(obj)
+            h = (obj.canTren - obj.canDuoi)/obj.N;
+            sum = obj.fx(obj.canDuoi) + obj.fx(obj.canTren);
+                for i= 1:2:obj.N - 1
                          sum = sum + 4*obj.fx(obj.canDuoi + i*h);
-                     end
-                     for i= 2:2:obj.N-1
+                end
+                for i= 2:2:obj.N-1
                          sum = sum + 2*obj.fx(obj.canDuoi + i*h);
-                     end
-                  obj.result = (h/3) * sum;
-            else
-                 h = (obj.canTren - obj.canDuoi)/obj.N;  
-                 sum = obj.fx(obj.canDuoi) + obj.fx(obj.canTren);
+                end
+                obj.result = (h/3) * sum;
+                result = obj.result;
+        end
+        function result = simpson38(obj)
+            h = (obj.canTren - obj.canDuoi)/obj.N;  
+            sum = obj.fx(obj.canDuoi) + obj.fx(obj.canTren);
                  if mod(obj.N, 3) ~= 0                  
                     sum = 0;
                  else
@@ -61,8 +53,27 @@ classdef Tichphan < NoiSuy
                     end
                  end
                 obj.result = ((3*h)/8) * (sum);
-            end
-            result = obj.result;
+                result = obj.result;
+        end
+        function obj = Tichphan(K, PP)
+            obj.K = K;
+            obj.PP = PP;
+        end
+        function result = XYTichphan(obj)
+            syms f(x);
+            f(x) = obj.LagrangePolynominal();
+            obj.fx = symfun(f(x), x);
+            result = obj.fxTichphan();
+            
+        end
+        function result = fxTichphan(obj)            
+            if obj.PP == 0 % hinh thang
+               result = double(obj.hinhthang());   
+            elseif obj.PP == 1 % 1/3
+               result = double(obj.simpsom13());  
+            else
+               result = double(obj.simpsom38()); 
+            end           
         end        
     end
 end
