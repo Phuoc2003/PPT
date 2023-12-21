@@ -52,6 +52,8 @@ classdef TimNghiem < handle
         end
 
         function [nghiem,solanlap] = tieptuyen_new(obj)
+             left = obj.a;
+             right = obj.b;
              syms x;
              fd1 = str2func(['@(x)' char(diff(obj.f(x)))]);
              fd2 = str2func(['@(x)' char(diff(fd1(x)))]);
@@ -77,6 +79,8 @@ classdef TimNghiem < handle
                  end
                  x0 = x1;
              end
+             obj.a = left;
+             obj.b = right;
              nghiem = x1;
              solanlap = n;
         end
