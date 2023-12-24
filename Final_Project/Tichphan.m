@@ -22,7 +22,7 @@ classdef Tichphan < NoiSuy
                      sum = sum + 2*obj.fx(obj.canDuoi + i*h);
                 end
                 obj.result = (h/2) * sum;
-                result = - obj.result;
+                result = obj.result;
         end
         function result = simpson13(obj)
             h = (obj.canTren - obj.canDuoi)/obj.N;
@@ -34,7 +34,7 @@ classdef Tichphan < NoiSuy
                       sum = sum + 2*obj.fx(obj.canDuoi + i*h);
                 end
                 obj.result = (h/3) * sum;
-                result = - obj.result;
+                result = obj.result;
         end
         function result = simpson38(obj)
             h = (obj.canTren - obj.canDuoi)/obj.N;  
@@ -53,7 +53,7 @@ classdef Tichphan < NoiSuy
                     end
                  end
                  obj.result = ((3*h)/8) * (sum);
-                 result = - obj.result;
+                 result = obj.result;
         end
         function obj = Tichphan(OnOff, PP)
             obj.OnOff = OnOff;
