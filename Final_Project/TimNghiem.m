@@ -14,6 +14,12 @@ classdef TimNghiem < handle
     end
 
     methods
+        function obj = TimNghiem(a, b, saiso)
+            obj.a = a;
+            obj.b = b;
+            obj.saiso = saiso;
+        end
+
         function [nghiem, solanlap] = chiadoi(obj)
              left = obj.a;
              right = obj.b;
